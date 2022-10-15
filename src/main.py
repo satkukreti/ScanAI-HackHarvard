@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import filedialog
 import cv2
+from PIL import ImageTk, Image
 import face_recognition
 import numpy as np
+
 
 
 class App(tk.Frame):
@@ -107,7 +109,7 @@ def uploadImage(event=None):
 
         # Draw a label with a name below the face
         cv2.rectangle(image, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
-        font = cv2.FONT_HERSHEY_DUPLEX
+        #font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(image, name, (left, bottom - 4), font, 1, (0, 0, 255), 2)
 
     # Display the resulting image
@@ -220,8 +222,11 @@ def liveFacialRecognition():
 root = tk.Tk()
 root.geometry("1920x1080")
 
-startMsg = labels(root, "Header", "Hello User!")
-startMsg.place(x=620, y=200)
+root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
+img = tk.PhotoImage(file='images/bodyimage.png')
+newLabel = Label(image=img, bd=5)
+newLabel.pack()
+
 
 tk.Button(root, text="Obama Recognition", command=liveFacialRecognition).place(x=650, y=300)
 tk.Button(root, text="Import Image", command=uploadImage).place(x=650, y=400)
