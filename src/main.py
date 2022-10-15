@@ -39,7 +39,7 @@ class labels:
 
 
 def uploadImage(event=None):
-    fileName = filedialog.askopenfilename(title = "Select file",filetypes = (("jpeg files", "png files", "*.png ", "*.jpg"),("all files","*.*")))
+    fileName = filedialog.askopenfilename(title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
     #print(fileName) #prints path to file..?
 #     staticFacialRecognition(fileName)
 #
