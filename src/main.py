@@ -15,7 +15,7 @@ class labels():
 
     varFont = "Helvetical bold"
     fontSize = 40
-    varFG = "#F2F2F2"
+    varFG = "#7676EE"
 
     def __init__(self, parent, name, varText):
         self.parent = parent
@@ -53,6 +53,8 @@ def LiveCamBtn():
         if cv2.waitKey(10) == ord('0'):
             cv2.destroyAllWindows()
             break
+        cv2.namedWindow('Facial Recognition', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('Facial Recognition', 500, 500)
         cv2.imshow('Facial Recognition', frame1)
 
 root = tk.Tk()
