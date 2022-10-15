@@ -64,26 +64,26 @@ def LiveCamBtn():
 
 def facialRecognition():
     # Load a sample picture and learn how to recognize it.
-    obama_image = face_recognition.load_image_file("/Users/thomas/HackHarvard2022/src/barackObama.jpg")
+    obama_image = face_recognition.load_image_file("barackObama.jpg")
     obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
     # Load a second sample picture and learn how to recognize it.
-    elon_image = face_recognition.load_image_file("/Users/thomas/HackHarvard2022/src/elonMusk.jpg")
+    elon_image = face_recognition.load_image_file("elonMusk.jpg")
     elon_face_encoding = face_recognition.face_encodings(elon_image)[0]
 
-    thomas_image = face_recognition.load_image_file("/Users/thomas/HackHarvard2022/src/Pic1.png")
-    thomas_face_encoding = face_recognition.face_encodings(thomas_image)[0]
+    Thomas_image = face_recognition.load_image_file("Pic1.png")
+    Thomas_face_encoding = face_recognition.face_encodings(Thomas_image)[0]
 
     # Create arrays of known face encodings and their names
     known_face_encodings = [
         obama_face_encoding,
         elon_face_encoding,
-        thomas_face_encoding,
+        Thomas_face_encoding
     ]
     known_face_names = [
         "Barack Obama",
         "Elon Musk",
-        "Thomas",
+        "Thomas"
     ]
 
     # Initialize some variables
@@ -115,7 +115,7 @@ def facialRecognition():
             for face_encoding in face_encodings:
                 # See if the face is a match for the known face(s)
                 matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-                name = "Unknown"
+                name = "Not Obama"
 
                 # # If a match was found in known_face_encodings, just use the first one.
                 # if True in matches:
@@ -146,21 +146,18 @@ def facialRecognition():
             # Draw a label with a name below the face
             cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
             font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(frame, name, (left + 4, bottom - 4), font, 1, (0, 0, 255), 2)
+            cv2.putText(frame, name, (left, bottom - 4), font, 1, (0, 0, 255), 2)
 
         # Display the resulting image
-        cv2
-        cv2.namedWindow('Facial Recognition', cv2.WINDOW_NORMAL)
-        cv2.resizeWindow('Facial Recognition', 500, 500)
+        cv2.imshow('Image', frame)
 
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-    
+
     # Release handle to the webcam
     capture.release()
     cv2.destroyAllWindows()
-
 
 root = tk.Tk()
 root.geometry("1920x1080")
