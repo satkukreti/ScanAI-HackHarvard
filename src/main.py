@@ -5,18 +5,19 @@ import face_recognition
 import cv2
 import numpy as np
 
+
 class App(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
         self.parent = parent
         self.pack()
-        root = App()
+        App()
     # frm = root.Frame(root, padding=10)
     # btn = tk.Button(frm, text="hi").pack()
 
-class labels():
 
-    varFont = "Helvetical bold"
+class labels:
+    varFont = "Helvetica bold"
     fontSize = 40
     varFG = "#7676EE"
 
@@ -27,15 +28,18 @@ class labels():
 
         self.label = tk.Label(
             parent,
-            fg = self.varFG,
-            text = varText,
-            font = (self.varFont, self.fontSize)
-            )
+            fg=self.varFG,
+            text=varText,
+            font=(self.varFont, self.fontSize)
+        )
+
     def place(self, **kwargs):
         self.label.place(kwargs)
 
+
 def uploadImage(event=None):
     fileName = filedialog.askopenfilename()
+
 
 def LiveCamBtn():
     cam = cv2.VideoCapture(0)
@@ -159,13 +163,14 @@ def facialRecognition():
     capture.release()
     cv2.destroyAllWindows()
 
+
 root = tk.Tk()
 root.geometry("1920x1080")
 
 startMsg = labels(root, "Header", "Hello User!")
 startMsg.place(x=620, y=200)
 
-liveBtn = tk.Button(root, text="Obama Recognition", command=facialRecognition).place(x=650, y=300)
-picBtn = tk.Button(root, text="Import Image", command=uploadImage).place(x=650, y=400)
+tk.Button(root, text="Obama Recognition", command=facialRecognition).place(x=650, y=300)
+tk.Button(root, text="Import Image", command=uploadImage).place(x=650, y=400)
 
 root.mainloop()
