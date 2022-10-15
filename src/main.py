@@ -203,11 +203,11 @@ def liveFacialRecognition():
 
 
 root = tk.Tk()
-root.geometry("1920x1080")
+#root.geometry("1920x1080")
 
-root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
-img = tk.PhotoImage(file='images/bodyimage.png')
-ttk.Label(image=img).pack()
+#root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
+#img = tk.PhotoImage(file='images/bodyimage.png')
+#ttk.Label(image=img).pack()
 
 
 tk.Button(root, text="Obama Recognition", command=liveFacialRecognition).place(x=650, y=300)
