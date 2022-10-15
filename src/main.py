@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import filedialog
 import cv2
+from PIL import ImageTk, Image
 import face_recognition
 import numpy as np
+
 
 
 class App(tk.Frame):
@@ -41,6 +43,8 @@ def uploadImage(event=None):
     fileName = filedialog.askopenfilename(title="Select file",
                                           filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
     image = face_recognition.load_image_file(fileName)
+<<<<<<< HEAD
+=======
 
     while True:
         # Face Detection
@@ -55,6 +59,40 @@ def uploadImage(event=None):
 
         cv2.imshow("Image", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
+        image_encoding = face_recognition.face_encodings(image)[0]
+        unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+
+        results = face_recognition.compare_faces([image_encoding], unknown_encoding)
+
+        cv2.putText(unknown_image, f'Barack Obama: {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+        cv2.imshow("Unknown", cv2.cvtColor(unknown_image, cv2.COLOR_BGR2RGB))
+        cv2.waitKey(1)
+        if cv2.waitKey(0) & 0xFF == ord('q'):
+            break
+    print("done")
+    cv2.destroyAllWindows()
+
+def liveFacialRecognition():
+    # Load a sample picture and learn how to recognize it.
+    obama_image = face_recognition.load_image_file("barackObama.jpg")
+    obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
+>>>>>>> e50c82c37d890bdf12783f6675c762da1ae3f4f9
+
+    while True:
+        # Face Detection
+        # Face Recognition
+        image = face_recognition.load_image_file("images/barackObama.jpg")
+        unknown_image = face_recognition.load_image_file(fileName)
+        face_locations = face_recognition.face_locations(unknown_image)
+
+        for (top, right, bottom, left) in face_locations:
+            # Draw a box around the face
+            cv2.rectangle(unknown_image, (left, top), (right, bottom), (0, 255, 0), 2)
+
+        cv2.imshow("Image", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+<<<<<<< HEAD
         image_encoding = face_recognition.face_encodings(image)[0]
         unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
@@ -94,6 +132,8 @@ def liveFacialRecognition():
         "Thomas"
     ]
 
+=======
+>>>>>>> e50c82c37d890bdf12783f6675c762da1ae3f4f9
     # Initialize some variables
     face_locations = []
     face_encodings = []
@@ -171,8 +211,11 @@ def liveFacialRecognition():
 root = tk.Tk()
 root.geometry("1920x1080")
 
-startMsg = labels(root, "Header", "Hello User!")
-startMsg.place(x=620, y=200)
+root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
+img = tk.PhotoImage(file='images/bodyimage.png')
+newLabel = Label(image=img, bd=5)
+newLabel.pack()
+
 
 tk.Button(root, text="Obama Recognition", command=liveFacialRecognition).place(x=650, y=300)
 tk.Button(root, text="Import Image", command=uploadImage).place(x=650, y=400)
