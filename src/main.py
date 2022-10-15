@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import filedialog
 import cv2
 from PIL import ImageTk, Image
@@ -174,8 +175,7 @@ root.geometry("1920x1080")
 
 root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
 img = tk.PhotoImage(file='images/bodyimage.png')
-newLabel = Label(image=img, bd=5)
-newLabel.pack()
+ttk.Label(image=img).pack()
 
 
 tk.Button(root, text="Obama Recognition", command=liveFacialRecognition).place(x=650, y=300)
