@@ -43,9 +43,6 @@ def uploadImage(event=None):
     fileName = filedialog.askopenfilename(title="Select file",
                                           filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
     image = face_recognition.load_image_file(fileName)
-<<<<<<< HEAD
-=======
-
     while True:
         # Face Detection
         # Face Recognition
@@ -77,7 +74,6 @@ def liveFacialRecognition():
     # Load a sample picture and learn how to recognize it.
     obama_image = face_recognition.load_image_file("barackObama.jpg")
     obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
->>>>>>> e50c82c37d890bdf12783f6675c762da1ae3f4f9
 
     while True:
         # Face Detection
@@ -92,7 +88,6 @@ def liveFacialRecognition():
 
         cv2.imshow("Image", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
-<<<<<<< HEAD
         image_encoding = face_recognition.face_encodings(image)[0]
         unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
@@ -132,8 +127,6 @@ def liveFacialRecognition():
         "Thomas"
     ]
 
-=======
->>>>>>> e50c82c37d890bdf12783f6675c762da1ae3f4f9
     # Initialize some variables
     face_locations = []
     face_encodings = []
