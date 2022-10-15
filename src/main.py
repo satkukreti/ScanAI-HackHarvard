@@ -3,7 +3,6 @@ from tkinter import filedialog
 from PIL import ImageTk, Image
 import cv2
 import face_recognition
-import cv2
 import numpy as np
 
 
