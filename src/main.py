@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import filedialog
-from PIL import ImageTk, Image
 import cv2
 import face_recognition
 import numpy as np
@@ -38,25 +37,25 @@ class labels:
 
 
 def uploadImage(event=None):
-<<<<<<< HEAD
     fileName = filedialog.askopenfilename(title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
-    print(fileName) #prints path to file..?
+    #print(fileName) #prints path to file..?
 #     staticFacialRecognition(fileName)
 #
 #
 #
 # def staticFacialRecognition(fileName):
     image = face_recognition.load_image_file(fileName)
+    cv2.imshow(fileName, cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     face_locations = face_recognition.face_locations(image)
     # Load a sample picture and learn how to recognize it.
-    obama_image = face_recognition.load_image_file("barackObama.jpg")
+    obama_image = face_recognition.load_image_file("images/barackObama.jpg")
     obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
     # Load a second sample picture and learn how to recognize it.
-    elon_image = face_recognition.load_image_file("elonMusk.jpg")
+    elon_image = face_recognition.load_image_file("images/elonMusk.jpg")
     elon_face_encoding = face_recognition.face_encodings(elon_image)[0]
 
-    Thomas_image = face_recognition.load_image_file("Pic1.png")
+    Thomas_image = face_recognition.load_image_file("images/Pic1.png")
     Thomas_face_encoding = face_recognition.face_encodings(Thomas_image)[0]
 
     # Create arrays of known face encodings and their names
@@ -113,57 +112,23 @@ def uploadImage(event=None):
 
     # Display the resulting image
     cv2.imshow('Image', cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-    cv2.waitKey(0)
-
-
-
 
 
     # # Hit 'q' on the keyboard to quit!
     # if cv2.waitKey(1) & 0xFF == ord('q'):
     #     break
-=======
-    fileName = filedialog.askopenfilename()
-    myImg = ImageTk.PhotoImage(Image.open)(fileName)
-    myImgLbl = Label(image=myImg)
-
-
-def LiveCamBtn():
-    cam = cv2.VideoCapture(0)
-    while cam.isOpened():
-        ret, frame1 = cam.read()
-        ret, frame2 = cam.read()
-        diff = cv2.absdiff(frame1, frame2)
-        gray = cv2.cvtColor(diff, cv2.COLOR_RGB2GRAY)
-        blur = cv2.GaussianBlur(gray, (5, 5), 0)
-        _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY)
-        dilated = cv2.dilate(thresh, None, iterations=3)
-        contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        for c in contours:
-            if cv2.contourArea(c) < 10000:
-                continue
-            x, y, w, h = cv2.boundingRect(c)
-            cv2.rectangle(frame1, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        if cv2.waitKey(10) == ord('0'):
-            cam.release()
-            cv2.destroyAllWindows()
-            break
-        cv2.namedWindow('Facial Recognition', cv2.WINDOW_NORMAL)
-        cv2.resizeWindow('Facial Recognition', 500, 500)
-        cv2.imshow('Facial Recognition', frame1)
->>>>>>> 6fec2f1f3ebda6c6a25bcd1d39a9f3e757835064
 
 
 def liveFacialRecognition():
     # Load a sample picture and learn how to recognize it.
-    obama_image = face_recognition.load_image_file("images/barackObama.jpg")
+    obama_image = face_recognition.load_image_file("barackObama.jpg")
     obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
     # Load a second sample picture and learn how to recognize it.
-    elon_image = face_recognition.load_image_file("images/elonMusk.jpg")
+    elon_image = face_recognition.load_image_file("elonMusk.jpg")
     elon_face_encoding = face_recognition.face_encodings(elon_image)[0]
 
-    Thomas_image = face_recognition.load_image_file("images/Pic1.png")
+    Thomas_image = face_recognition.load_image_file("Pic1.png")
     Thomas_face_encoding = face_recognition.face_encodings(Thomas_image)[0]
 
     # Create arrays of known face encodings and their names
@@ -205,10 +170,16 @@ def liveFacialRecognition():
 
             face_names = []
             for face_encoding in face_encodings:
-                # Check for a match of known faces in array of encondings
+                # See if the face is a match for the known face(s)
                 matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
                 name = "Not Obama"
 
+                # # If a match was found in known_face_encodings, just use the first one.
+                # if True in matches:
+                #     first_match_index = matches.index(True)
+                #     name = known_face_names[first_match_index]
+
+                # Or instead, use the known face with the smallest distance to the new face
                 face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
                 best_match_index = np.argmin(face_distances)
                 if matches[best_match_index]:
