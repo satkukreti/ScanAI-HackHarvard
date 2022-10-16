@@ -5,6 +5,8 @@ import cv2
 from PIL import ImageTk, Image
 import face_recognition
 import numpy as np
+import os
+import Object_Detection.yolov5.detect
 
 
 
@@ -44,7 +46,7 @@ class labels:
                                               filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
         image = face_recognition.load_image_file(fileName)
         while True:
-            image = face_recognition.load_image_file("images/barackObama.jpg")
+            image = face_recognition.load_image_file("src/images/barackObama.jpg")
             unknown_image = face_recognition.load_image_file(fileName)
             face_locations = face_recognition.face_locations(unknown_image)
 
@@ -82,14 +84,14 @@ class labels:
 
     def liveFacialRecognition():
         # Load a sample picture and learn how to recognize it.
-        obama_image = face_recognition.load_image_file("images/barackObama.jpg")
+        obama_image = face_recognition.load_image_file("src/images/barackObama.jpg")
         obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
         # Load a second sample picture and learn how to recognize it.
-        elon_image = face_recognition.load_image_file("images/elonMusk.jpg")
+        elon_image = face_recognition.load_image_file("src/images/elonMusk.jpg")
         elon_face_encoding = face_recognition.face_encodings(elon_image)[0]
 
-        Thomas_image = face_recognition.load_image_file("images/Pic1.png")
+        Thomas_image = face_recognition.load_image_file("src/images/Pic1.png")
         Thomas_face_encoding = face_recognition.face_encodings(Thomas_image)[0]
 
         # Create arrays of known face encodings and their names
@@ -173,48 +175,20 @@ class labels:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-        # Release handle to the webcam
-        capture.release()
-        cv2.destroyAllWindows()
 
-        root = tk.Tk()
-        root.title("SCAN ai")
-        root.geometry("1920x1080")
-        root.configure(bg="#ffffff")
-        root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
-
-        frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100,
-                              pady=10, labelanchor="n")
-        frame.configure(bg="#ffffff")
-
-        my_img = ImageTk.PhotoImage(Image.open('images/bodyimage.png'))
-        my_label = tk.Label(image=my_img, padx=20, pady=20)
-        tk.Label(text="   ", bg="#ffffff").pack()
-        my_label.pack()
-        tk.Label(text="   ", bg="#ffffff").pack()
-
-        frame.pack(padx=100, pady=10, fill="both")
-
-        tk.Label(frame, text="   ", bg="#ffffff").pack()
-        tk.Button(frame, font="Arial, 20", text="Live Recognition", command=liveFacialRecognition, pady=10).pack(fill="x")
-        tk.Label(frame, text="   ", bg="#ffffff").pack()
-        tk.Label(frame, text="   ", bg="#ffffff").pack()
-        tk.Button(frame, font="Arial, 20", text="Import Image", command=uploadImage, pady=10).pack(fill="x")
-        tk.Label(frame, text="   ", bg="#ffffff").pack()
-
-        root.mainloop()
+    print(os.getcwd())
 
 
     root = tk.Tk()
     root.title("SCAN ai")
     root.geometry("1920x1080")
     root.configure(bg="#ffffff")
-    root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
+    root.iconphoto(False, tk.PhotoImage(file='src/images/logoimage.png'))
 
     frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100, pady=10, labelanchor="n")
     frame.configure(bg="#ffffff")
 
-    my_img = ImageTk.PhotoImage(Image.open('images/bodyimage.png'))
+    my_img = ImageTk.PhotoImage(Image.open('src/images/bodyimage.png'))
     my_label = tk.Label(image=my_img, padx=20, pady=20)
     tk.Label(text="   ", bg="#ffffff").pack()
     my_label.pack()
@@ -229,10 +203,11 @@ class labels:
     frame.pack(padx=100, pady=10, fill="both")
 
     tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20",text="Live Recognition", command=liveFacialRecognition, pady=10).pack(fill="x")
+    tk.Button(frame, font="Arial, 20",text="Are You A Celebrity?", command=liveFacialRecognition, pady=10).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
+    tk.Button(frame, font="Arial, 20", text="Weapon Detection", command=print('Test'), pady=10).pack(fill="x")
 
     root.mainloop()
