@@ -177,41 +177,14 @@ class labels:
         capture.release()
         cv2.destroyAllWindows()
 
-        root = tk.Tk()
-        root.title("SCAN ai")
-        root.geometry("1920x1080")
-        root.configure(bg="#ffffff")
-        root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
-
-        frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100,
-                              pady=10, labelanchor="n")
-        frame.configure(bg="#ffffff")
-
-        my_img = ImageTk.PhotoImage(Image.open('images/bodyimage.png'))
-        my_label = tk.Label(image=my_img, padx=20, pady=20)
-        tk.Label(text="   ", bg="#ffffff").pack()
-        my_label.pack()
-        tk.Label(text="   ", bg="#ffffff").pack()
-
-        frame.pack(padx=100, pady=10, fill="both")
-
-        tk.Label(frame, text="   ", bg="#ffffff").pack()
-        tk.Button(frame, font="Arial, 20", text="Live Recognition", command=liveFacialRecognition, pady=10).pack(fill="x")
-        tk.Label(frame, text="   ", bg="#ffffff").pack()
-        tk.Label(frame, text="   ", bg="#ffffff").pack()
-        tk.Button(frame, font="Arial, 20", text="Import Image", command=uploadImage, pady=10).pack(fill="x")
-        tk.Label(frame, text="   ", bg="#ffffff").pack()
-
-        root.mainloop()
-
-
     root = tk.Tk()
     root.title("SCAN ai")
     root.geometry("1920x1080")
     root.configure(bg="#ffffff")
     root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
 
-    frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100, pady=10, labelanchor="n")
+    frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100,
+                          pady=10, labelanchor="n")
     frame.configure(bg="#ffffff")
 
     my_img = ImageTk.PhotoImage(Image.open('images/bodyimage.png'))
@@ -220,19 +193,46 @@ class labels:
     my_label.pack()
     tk.Label(text="   ", bg="#ffffff").pack()
 
-
-    #root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
-    #img = tk.PhotoImage(file='images/bodyimage.png')
-    #ttk.Label(image=img).pack()
-
-
     frame.pack(padx=100, pady=10, fill="both")
 
-    tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20",text="Live Recognition", command=liveFacialRecognition, pady=10).pack(fill="x")
-    tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
-    tk.Label(frame,text="   ", bg="#ffffff").pack()
+    tk.Label(frame, text="   ", bg="#ffffff").pack()
+    tk.Button(frame, font="Arial, 20", text="Live Recognition", command=liveFacialRecognition, pady=10).pack(fill="x")
+    tk.Label(frame, text="   ", bg="#ffffff").pack()
+    tk.Label(frame, text="   ", bg="#ffffff").pack()
+    tk.Button(frame, font="Arial, 20", text="Import Image", command=uploadImage, pady=10).pack(fill="x")
+    tk.Label(frame, text="   ", bg="#ffffff").pack()
 
     root.mainloop()
+
+
+root = tk.Tk()
+root.title("SCAN ai")
+root.geometry("1920x1080")
+root.configure(bg="#ffffff")
+root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
+
+frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100, pady=10, labelanchor="n")
+frame.configure(bg="#ffffff")
+
+my_img = ImageTk.PhotoImage(Image.open('images/bodyimage.png'))
+my_label = tk.Label(image=my_img, padx=20, pady=20)
+tk.Label(text="   ", bg="#ffffff").pack()
+my_label.pack()
+tk.Label(text="   ", bg="#ffffff").pack()
+
+
+#root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
+#img = tk.PhotoImage(file='images/bodyimage.png')
+#ttk.Label(image=img).pack()
+
+
+frame.pack(padx=100, pady=10, fill="both")
+
+tk.Label(frame,text="   ", bg="#ffffff").pack()
+tk.Button(frame, font="Arial, 20",text="Live Recognition", command=liveFacialRecognition, pady=10).pack(fill="x")
+tk.Label(frame,text="   ", bg="#ffffff").pack()
+tk.Label(frame,text="   ", bg="#ffffff").pack()
+tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
+tk.Label(frame,text="   ", bg="#ffffff").pack()
+
+root.mainloop()
