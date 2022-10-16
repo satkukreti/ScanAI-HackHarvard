@@ -76,9 +76,15 @@ class labels:
                 print("SHOULD BE RED")
 
             else:
-                unknown_encoding = face_recognition.face_encodings(image)[0]
-                results = face_recognition.compare_faces([image_encoding], unknown_encoding)
-
+                unknown_encoding = face_recognition.face_encodings(image)
+                #print(unknown_encoding)
+                results=[]
+                x = 0
+                for i in range(len(unknown_encoding)):
+                    #print(i)
+                    #print(face_recognition.compare_faces([image_encoding], unknown_encoding[x]))
+                    results.append(face_recognition.compare_faces([image_encoding], unknown_encoding[x]))
+                    x+=1
                 cv2.putText(image, f'Is this Barack Obama? {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1,
                             (255, 255, 255), 2)
                 # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
@@ -91,13 +97,16 @@ class labels:
                 else:
                     cv2.rectangle(image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (0, 255, 0 ), cv2.FILLED)
                     #print("Should be green")
-                for (top, right, bottom, left) in face_locations:
-                        # Draw a box around the face
-                    if results[0]==False:
-                        cv2.rectangle(image, (left, top), (right, bottom), (255, 0, 0), 2)
-                    else:
-                        cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
 
+                counter = 0
+                for (top, right, bottom, left) in face_locations:
+                    if results[counter][0]==True:
+                        cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
+                        cv2.rectangle(image, (left, bottom - 35), (right, bottom), (0, 255, 0 ), cv2.FILLED)
+                    elif results[counter][0]==False:
+                        cv2.rectangle(image, (left, top), (right, bottom), (255, 0, 0), 2)
+                        cv2.rectangle(image, (left, bottom - 35), (right, bottom), (255, 0, 0 ), cv2.FILLED)
+                    counter+=1
 
             font = cv2.FONT_HERSHEY_DUPLEX
             cv2.imshow("Unknown", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
@@ -206,7 +215,6 @@ class labels:
 
 
 
-    
     print(os.getcwd())
 
 
