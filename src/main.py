@@ -42,42 +42,51 @@ class labels:
 
     def uploadImage(event=None):
         # image = face_recognition.load_image_file("images/barackObama.jpg")
+        global left
         fileName = filedialog.askopenfilename(title="Select file",
                                               filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
         image = face_recognition.load_image_file(fileName)
+
         obama = face_recognition.load_image_file("src/images/barackObama.jpg")
         face_locations = face_recognition.face_locations(image)
 
-        for (top, right, bottom, left) in face_locations:
-            # Draw a box around the face
-            cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
+        # for (top, right, bottom, left) in face_locations:
+        #     # Draw a box around the face
+        #     cv2.rectangle(unknown_image, (left, top), (right, bottom), (0, 255, 0), 2)
 
         image_encoding = face_recognition.face_encodings(obama)[0]
         faces = face_recognition.face_encodings(image)
         if len(faces) <= 0:
             root = tk.Tk()
             tk.messagebox.showerror(title="Error", message="No faces were found.")
+            # print("error")
             cv2.destroyAllWindows()
             root.destroy()
         else:
             unknown_encoding = face_recognition.face_encodings(image)[0]
-
             results = face_recognition.compare_faces([image_encoding], unknown_encoding)
 
             cv2.putText(image, f'Is this Barack Obama? {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1,
                         (255, 255, 255), 2)
             # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+            print(face_locations)
+            print(face_locations[0][3])
+            if results[0]==False:
+                cv2.rectangle(image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (255, 0, 0 ), cv2.FILLED)
+                print("SHOULD BE RED")
 
-            r = 0
-            g = 255
+            else:
+                cv2.rectangle(image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (0, 255, 0 ), cv2.FILLED)
+                print("Should be green")
+            for (top, right, bottom, left) in face_locations:
+                    # Draw a box around the face
+                if results[0]==False:
+                    cv2.rectangle(image, (left, top), (right, bottom), (255, 0, 0), 2)
+                else:
+                    cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
 
-            if not results[0]:
-                g = 0
-                r = 255
-            
-            cv2.rectangle(image, (left, bottom - 35), (right, bottom), (r, g, 0 ), cv2.FILLED)
+
             font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(image, f'{results[0]}', (left, bottom - 4), font, 1, (255, 255, 255), 2)
             cv2.imshow("Unknown", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
 
