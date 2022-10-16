@@ -71,15 +71,15 @@ class labels:
                 cv2.putText(unknown_image, f'Is this Barack Obama? {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1,
                             (255, 255, 255), 2)
                 # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-                print(face_locations)
-                print(face_locations[0][3])
+                #print(face_locations)
+                #print(face_locations[0][3])
                 if results[0]==False:
                     cv2.rectangle(unknown_image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (255, 0, 0 ), cv2.FILLED)
-                    print("SHOULD BE RED")
+                    #print("SHOULD BE RED")
 
                 else:
                     cv2.rectangle(unknown_image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (0, 255, 0 ), cv2.FILLED)
-                    print("Should be green")
+                    #print("Should be green")
                 for (top, right, bottom, left) in face_locations:
                         # Draw a box around the face
                     if results[0]==False:
