@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
+from tkinter import messagebox
 import cv2
 from PIL import ImageTk, Image
 import face_recognition
@@ -54,54 +55,38 @@ def uploadImage(event=None):
         for (top, right, bottom, left) in face_locations:
             # Draw a box around the face
             cv2.rectangle(unknown_image, (left, top), (right, bottom), (0, 255, 0), 2)
+            cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(frame, name, (left, bottom - 4), font, 1, (0, 0, 255), 2)
 
-        cv2.imshow("Image", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-
+        #cv2.imshow("Image", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+        # EXCEPTION HANDLING CASE: NO FACES FOUND
         image_encoding = face_recognition.face_encodings(image)[0]
-        unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
-
-        results = face_recognition.compare_faces([image_encoding], unknown_encoding)
-
-        cv2.putText(unknown_image, f'Barack Obama: {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-        cv2.imshow("Unknown", cv2.cvtColor(unknown_image, cv2.COLOR_BGR2RGB))
-        cv2.waitKey(1)
-        if cv2.waitKey(0) & 0xFF == ord('q'):
+        faces = face_recognition.face_encodings(unknown_image)
+        if len(faces)<=0:
+            root = tk.Tk()
+            tk.messagebox.showerror(title="Error", message="No faces were found.")
+            #cv2.putText(, f'No faces were found, please resubmit.', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 2)
+            #cv2.imshow("Unknown", cv2.cvtColor(unknown_image, cv2.COLOR_BGR2RGB))
+            # if cv2.waitKey(0) & 0xFF == ord('q'):
+            #     break
+            print("error")
+            cv2.destroyAllWindows()
+            root.destroy()
             break
-    print("done")
-    cv2.destroyAllWindows()
+        else:
+            unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
-def liveFacialRecognition():
-    # Load a sample picture and learn how to recognize it.
-    obama_image = face_recognition.load_image_file("barackObama.jpg")
-    obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
+            results = face_recognition.compare_faces([image_encoding], unknown_encoding)
 
-    while True:
-        # Face Detection
-        # Face Recognition
-        image = face_recognition.load_image_file("images/barackObama.jpg")
-        unknown_image = face_recognition.load_image_file(fileName)
-        face_locations = face_recognition.face_locations(unknown_image)
-
-        for (top, right, bottom, left) in face_locations:
-            # Draw a box around the face
-            cv2.rectangle(unknown_image, (left, top), (right, bottom), (0, 255, 0), 2)
-
-        cv2.imshow("Image", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-
-        image_encoding = face_recognition.face_encodings(image)[0]
-        unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
-
-        results = face_recognition.compare_faces([image_encoding], unknown_encoding)
-
-        cv2.putText(unknown_image, f'Barack Obama: {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-        cv2.imshow("Unknown", cv2.cvtColor(unknown_image, cv2.COLOR_BGR2RGB))
-        cv2.waitKey(1)
-        if cv2.waitKey(0) & 0xFF == ord('q'):
-            break
-    print("done")
-    cv2.destroyAllWindows()
+            cv2.putText(unknown_image, f'Barack Obama: {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+            cv2.imshow("Unknown", cv2.cvtColor(unknown_image, cv2.COLOR_BGR2RGB))
+            cv2.waitKey(1)
+            if cv2.waitKey(0) & 0xFF == ord('q'):
+                break
+            print("done")
+            cv2.destroyAllWindows()
 
 
 def liveFacialRecognition():
@@ -203,7 +188,7 @@ def liveFacialRecognition():
 
 
 root = tk.Tk()
-#root.geometry("1920x1080")
+root.geometry("1920x1080")
 
 #root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
 #img = tk.PhotoImage(file='images/bodyimage.png')
