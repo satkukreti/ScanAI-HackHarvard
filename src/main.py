@@ -43,7 +43,7 @@ class labels:
     def uploadImage(event=None):
         # image = face_recognition.load_image_file("images/barackObama.jpg")
         global left
-        fileName = filedialog.askopenfilename(title="Select file",
+        fileName = filedialog.askopenfilename(title="Select Image",
                                               filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
         image = face_recognition.load_image_file(fileName)
 
@@ -76,27 +76,27 @@ class labels:
                 print("SHOULD BE RED")
 
             else:
-                unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+                unknown_encoding = face_recognition.face_encodings(image)[0]
                 results = face_recognition.compare_faces([image_encoding], unknown_encoding)
 
-                cv2.putText(unknown_image, f'Is this Barack Obama? {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                cv2.putText(image, f'Is this Barack Obama? {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1,
                             (255, 255, 255), 2)
                 # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
                 #print(face_locations)
                 #print(face_locations[0][3])
                 if results[0]==False:
-                    cv2.rectangle(unknown_image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (255, 0, 0 ), cv2.FILLED)
+                    cv2.rectangle(image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (255, 0, 0 ), cv2.FILLED)
                     #print("SHOULD BE RED")
 
                 else:
-                    cv2.rectangle(unknown_image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (0, 255, 0 ), cv2.FILLED)
+                    cv2.rectangle(image, (face_locations[0][3], face_locations[0][2] - 35), (face_locations[0][1], face_locations[0][2]), (0, 255, 0 ), cv2.FILLED)
                     #print("Should be green")
                 for (top, right, bottom, left) in face_locations:
                         # Draw a box around the face
                     if results[0]==False:
-                        cv2.rectangle(unknown_image, (left, top), (right, bottom), (255, 0, 0), 2)
+                        cv2.rectangle(image, (left, top), (right, bottom), (255, 0, 0), 2)
                     else:
-                        cv2.rectangle(unknown_image, (left, top), (right, bottom), (0, 255, 0), 2)
+                        cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
 
 
             font = cv2.FONT_HERSHEY_DUPLEX
@@ -198,6 +198,13 @@ class labels:
 
     def weapon_finder():
         dtc.run(weights='src/best.pt', source=0)
+    
+    def weapon_image():
+        fileName = filedialog.askopenfilename(title="Select Image",
+                                              filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
+        dtc.run(weights='src/best.pt', source=fileName, view_img=True)
+
+
 
     
     print(os.getcwd())
@@ -233,7 +240,10 @@ class labels:
     tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20", text="Weapon Detection", command=weapon_finder, pady=10).pack(fill="x")
+    tk.Button(frame, font="Arial, 20", text="Live Weapon Detection", command=weapon_finder, pady=10).pack(fill="x")
+    tk.Label(frame,text="   ", bg="#ffffff").pack()
+    tk.Label(frame,text="   ", bg="#ffffff").pack()
+    tk.Button(frame, font="Arial, 20", text="Image Weapon Detection", command=weapon_image, pady=10).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
 
     root.mainloop()
