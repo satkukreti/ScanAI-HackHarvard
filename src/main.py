@@ -45,41 +45,40 @@ class labels:
         fileName = filedialog.askopenfilename(title="Select file",
                                               filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
         image = face_recognition.load_image_file(fileName)
-        while True:
-            image = face_recognition.load_image_file("src/images/barackObama.jpg")
-            unknown_image = face_recognition.load_image_file(fileName)
-            face_locations = face_recognition.face_locations(unknown_image)
+        obama = face_recognition.load_image_file("src/images/barackObama.jpg")
+        face_locations = face_recognition.face_locations(image)
 
-            for (top, right, bottom, left) in face_locations:
-                # Draw a box around the face
-                cv2.rectangle(unknown_image, (left, top), (right, bottom), (0, 255, 0), 2)
+        for (top, right, bottom, left) in face_locations:
+            # Draw a box around the face
+            cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
 
-            image_encoding = face_recognition.face_encodings(image)[0]
-            faces = face_recognition.face_encodings(unknown_image)
-            if len(faces) <= 0:
-                root = tk.Tk()
-                tk.messagebox.showerror(title="Error", message="No faces were found.")
-                # print("error")
-                cv2.destroyAllWindows()
-                root.destroy()
-                break
-            else:
-                unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+        image_encoding = face_recognition.face_encodings(obama)[0]
+        faces = face_recognition.face_encodings(image)
+        if len(faces) <= 0:
+            root = tk.Tk()
+            tk.messagebox.showerror(title="Error", message="No faces were found.")
+            cv2.destroyAllWindows()
+            root.destroy()
+        else:
+            unknown_encoding = face_recognition.face_encodings(image)[0]
 
-                results = face_recognition.compare_faces([image_encoding], unknown_encoding)
+            results = face_recognition.compare_faces([image_encoding], unknown_encoding)
 
-                cv2.putText(unknown_image, f'Is this Barack Obama? {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                            (255, 255, 255), 2)
-                # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-                cv2.rectangle(unknown_image, (left, bottom - 35), (right, bottom), (0, 255, 0 ), cv2.FILLED)
-                font = cv2.FONT_HERSHEY_DUPLEX
-                cv2.putText(unknown_image, f'{results[0]}', (left, bottom - 4), font, 1, (255, 255, 255), 2)
-                cv2.imshow("Unknown", cv2.cvtColor(unknown_image, cv2.COLOR_BGR2RGB))
-                cv2.waitKey(1)
-                if cv2.waitKey(0) & 0xFF == ord('q'):
-                    break
-                print("done")
-                cv2.destroyAllWindows()
+            cv2.putText(image, f'Is this Barack Obama? {results[0]}', (25, 75), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                        (255, 255, 255), 2)
+            # cv2.imshow("Barack Obama", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+            r = 0
+            g = 255
+
+            if not results[0]:
+                g = 0
+                r = 255
+            
+            cv2.rectangle(image, (left, bottom - 35), (right, bottom), (r, g, 0 ), cv2.FILLED)
+            font = cv2.FONT_HERSHEY_DUPLEX
+            cv2.putText(image, f'{results[0]}', (left, bottom - 4), font, 1, (255, 255, 255), 2)
+            cv2.imshow("Unknown", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
 
     def liveFacialRecognition():
@@ -206,11 +205,13 @@ class labels:
     frame.pack(padx=100, pady=10, fill="both")
 
     tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20",text="Are You A Celebrity?", command=liveFacialRecognition, pady=10).pack(fill="x")
+    tk.Button(frame, font="Arial, 20",text="Are You Obama?", command=liveFacialRecognition, pady=10).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
+    tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Button(frame, font="Arial, 20", text="Weapon Detection", command=weapon_finder, pady=10).pack(fill="x")
+    tk.Label(frame,text="   ", bg="#ffffff").pack()
 
     root.mainloop()
