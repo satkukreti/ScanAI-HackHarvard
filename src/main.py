@@ -183,12 +183,12 @@ class labels:
     root.title("SCAN ai")
     root.geometry("1920x1080")
     root.configure(bg="#ffffff")
-    root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
+    root.iconphoto(False, tk.PhotoImage(file='src/images/logoimage.png'))
 
     frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100, pady=10, labelanchor="n")
     frame.configure(bg="#ffffff")
 
-    my_img = ImageTk.PhotoImage(Image.open('images/bodyimage.png'))
+    my_img = ImageTk.PhotoImage(Image.open('src/images/bodyimage.png'))
     my_label = tk.Label(image=my_img, padx=20, pady=20)
     tk.Label(text="   ", bg="#ffffff").pack()
     my_label.pack()
