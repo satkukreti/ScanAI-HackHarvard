@@ -6,7 +6,7 @@ from PIL import ImageTk, Image
 import face_recognition
 import numpy as np
 import os
-import Object_Detection.yolov5.detect
+import Object_Detection.yolov5.detect as dtc
 
 
 
@@ -175,7 +175,10 @@ class labels:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
+    def weapon_finder():
+        dtc.run(weights='src/best.pt', source=0)
 
+    
     print(os.getcwd())
 
 
@@ -208,6 +211,6 @@ class labels:
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20", text="Weapon Detection", command=print('Test'), pady=10).pack(fill="x")
+    tk.Button(frame, font="Arial, 20", text="Weapon Detection", command=weapon_finder, pady=10).pack(fill="x")
 
     root.mainloop()
