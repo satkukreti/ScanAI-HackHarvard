@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from tkinter import filedialog
 import cv2
 from PIL import ImageTk, Image
@@ -12,7 +11,7 @@ class App(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
         self.parent = parent
-        self.pack()
+        #self.pack()
         App()
     # frm = root.Frame(root, padding=10)
     # btn = tk.Button(frm, text="hi").pack()
@@ -44,9 +43,6 @@ def uploadImage(event=None):
     fileName = filedialog.askopenfilename(title="Select file",
                                           filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
     image = face_recognition.load_image_file(fileName)
-<<<<<<< HEAD
-=======
-
     while True:
         # Face Detection
         # Face Recognition
@@ -78,7 +74,6 @@ def liveFacialRecognition():
     # Load a sample picture and learn how to recognize it.
     obama_image = face_recognition.load_image_file("barackObama.jpg")
     obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
->>>>>>> e50c82c37d890bdf12783f6675c762da1ae3f4f9
 
     while True:
         # Face Detection
@@ -93,7 +88,6 @@ def liveFacialRecognition():
 
         cv2.imshow("Image", cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
-<<<<<<< HEAD
         image_encoding = face_recognition.face_encodings(image)[0]
         unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
 
@@ -133,8 +127,6 @@ def liveFacialRecognition():
         "Thomas"
     ]
 
-=======
->>>>>>> e50c82c37d890bdf12783f6675c762da1ae3f4f9
     # Initialize some variables
     face_locations = []
     face_encodings = []
@@ -210,14 +202,28 @@ def liveFacialRecognition():
 
 
 root = tk.Tk()
+root.title("SCAN ai")
 root.geometry("1920x1080")
-
+root.configure(bg="#ffffff")
 root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
-img = tk.PhotoImage(file='images/bodyimage.png')
-ttk.Label(image=img).pack()
+
+frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100, pady=10, labelanchor="n")
+frame.configure(bg="#ffffff")
+
+my_img = ImageTk.PhotoImage(Image.open('images/bodyimage.png'))
+my_label = tk.Label(image=my_img, padx=20, pady=20)
+tk.Label(text="   ", bg="#ffffff").pack()
+my_label.pack()
+tk.Label(text="   ", bg="#ffffff").pack()
 
 
-tk.Button(root, text="Obama Recognition", command=liveFacialRecognition).place(x=650, y=300)
-tk.Button(root, text="Import Image", command=uploadImage).place(x=650, y=400)
+frame.pack(padx=100, pady=10, fill="both")
+
+tk.Label(frame,text="   ", bg="#ffffff").pack()
+tk.Button(frame, font="Arial, 20",text="Live Recognition", command=liveFacialRecognition, pady=10).pack(fill="x")
+tk.Label(frame,text="   ", bg="#ffffff").pack()
+tk.Label(frame,text="   ", bg="#ffffff").pack()
+tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
+tk.Label(frame,text="   ", bg="#ffffff").pack()
 
 root.mainloop()
