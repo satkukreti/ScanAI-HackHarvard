@@ -191,7 +191,7 @@ class labels:
                 break
 
     def weapon_finder():
-        dtc.run(weights='src/best.pt', source=0)
+        dtc.run(weights='best.pt', source=0)
 
     
     print(os.getcwd())
@@ -201,12 +201,12 @@ class labels:
     root.title("SCAN ai")
     root.geometry("1920x1080")
     root.configure(bg="#ffffff")
-    root.iconphoto(False, tk.PhotoImage(file='src/images/logoimage.png'))
+    root.iconphoto(False, tk.PhotoImage(file='images/logoimage.png'))
 
     frame = tk.LabelFrame(root, font="Helvetica, 20", text="  Thomas, Winston, Tina, & Satvik present  ", padx=100, pady=10, labelanchor="n")
     frame.configure(bg="#ffffff")
 
-    my_img = ImageTk.PhotoImage(Image.open('src/images/bodyimage.png'))
+    my_img = ImageTk.PhotoImage(Image.open('images/bodyimage.png'))
     my_label = tk.Label(image=my_img, padx=20, pady=20)
     tk.Label(text="   ", bg="#ffffff").pack()
     my_label.pack()
@@ -225,6 +225,7 @@ class labels:
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
+    tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Label(frame,text="   ", bg="#ffffff").pack()
     tk.Button(frame, font="Arial, 20", text="Weapon Detection", command=weapon_finder, pady=10).pack(fill="x")
 
