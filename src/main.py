@@ -183,7 +183,9 @@ class labels:
         fileName = filedialog.askopenfilename(title="Select Image",
                                               filetypes=(("jpg", "*.jpg"), ("png", "*.png")))
         dtc.run(weights='src/best.pt', source=fileName, view_img=True)
-
+        
+    def object_detection():
+        dtc.run(weights='src/yolov5s.pt', source=0)
 
 
     print(os.getcwd())
@@ -213,16 +215,15 @@ class labels:
     frame.pack(padx=100, pady=10, fill="both")
 
     tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20",text="Are You Obama?", command=liveFacialRecognition, pady=10).pack(fill="x")
+    tk.Button(frame, font="Arial, 20",text="Are You Obama?", command=liveFacialRecognition, pady=8).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
+    tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=8).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20",text="Import Image", command=uploadImage, pady=10).pack(fill="x")
+    tk.Button(frame, font="Arial, 20", text="Live Weapon Detection", command=weapon_finder, pady=8).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
+    tk.Button(frame, font="Arial, 20", text="Image Weapon Detection", command=weapon_image, pady=8).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20", text="Live Weapon Detection", command=weapon_finder, pady=10).pack(fill="x")
-    tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Label(frame,text="   ", bg="#ffffff").pack()
-    tk.Button(frame, font="Arial, 20", text="Image Weapon Detection", command=weapon_image, pady=10).pack(fill="x")
+    tk.Button(frame, font="Arial, 20", text="Object Detection", command=object_detection, pady=8).pack(fill="x")
     tk.Label(frame,text="   ", bg="#ffffff").pack()
 
     root.mainloop()
